@@ -13,10 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.commit
 import androidx.navigation.NavController
-import com.traeen.fant.ui.new_item.NewItemsFragment
-
 
 class
 Main : AppCompatActivity() {
