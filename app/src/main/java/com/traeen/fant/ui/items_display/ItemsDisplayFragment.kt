@@ -63,7 +63,7 @@ class ItemsDisplayFragment : Fragment() {
         root.items_list.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
-
+            root.items_list.adapter = ItemsListAdapter(dataset)
         }
 
         return root
