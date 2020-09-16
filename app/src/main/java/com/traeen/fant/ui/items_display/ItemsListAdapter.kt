@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.traeen.fant.R
+import com.traeen.fant.network.Item
 
 import com.traeen.fant.ui.items_display.dummy.DummyContent.DummyItem
+import kotlinx.android.synthetic.main.list_item_card.view.*
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem].
  * TODO: Replace the implementation with code for your data type.
  */
 class ItemsListAdapter(
-    private val values: List<DummyItem>
+    private val values: List<Item>
 ) : RecyclerView.Adapter<ItemsListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,9 +27,8 @@ class ItemsListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
-
+        holder.idView.text = item.id.toString()
+        holder.contentView.text = item.name
     }
 
     override fun getItemCount(): Int = values.size

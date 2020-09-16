@@ -23,6 +23,8 @@ class ItemDisplayFragment : Fragment() {
                 ViewModelProviders.of(this).get(ItemDisplayViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_gallery, container, false)
         val textView: TextView = root.findViewById(R.id.text_gallery)
+
+
         itemDisplayViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
