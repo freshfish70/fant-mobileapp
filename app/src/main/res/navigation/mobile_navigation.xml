@@ -7,19 +7,33 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.traeen.fant.ui.home.HomeFragment"
+        android:name="com.traeen.fant.ui.items_display.ItemsDisplayFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.traeen.fant.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:id="@+id/nav_search"
+        android:name="com.traeen.fant.ui.item_display.ItemDisplayFragment"
+        android:label="@string/menu_search"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.traeen.fant.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:id="@+id/nav_add_item"
+        android:name="com.traeen.fant.ui.new_item.NewItemsFragment"
+        android:label="@string/menu_add_item"
         tools:layout="@layout/fragment_slideshow" />
+
+    <activity
+        android:id="@+id/nav_login"
+        android:name="com.traeen.fant.Login"
+        android:label="@string/menu_login"
+        tools:layout="@layout/activity_login" />
+
+    <activity
+        android:id="@+id/nav_create_user"
+        android:name="com.traeen.fant.CreateUser"
+        android:label="activity_create_user"
+        tools:layout="@layout/activity_create_user" />
+
+
 </navigation>

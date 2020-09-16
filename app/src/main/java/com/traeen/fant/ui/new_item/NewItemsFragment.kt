@@ -1,4 +1,4 @@
-package com.traeen.fant.ui.slideshow
+package com.traeen.fant.ui.new_item
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.traeen.fant.R
 
-class SlideshowFragment : Fragment() {
+class NewItemsFragment : Fragment() {
 
-    private lateinit var slideshowViewModel: SlideshowViewModel
+    private lateinit var newItemsViewModel: NewItemsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel::class.java)
+        newItemsViewModel =
+                ViewModelProviders.of(this).get(NewItemsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
         val textView: TextView = root.findViewById(R.id.text_slideshow)
-        slideshowViewModel.text.observe(viewLifecycleOwner, Observer {
+        newItemsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root
