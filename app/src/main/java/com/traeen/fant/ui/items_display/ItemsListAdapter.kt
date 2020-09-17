@@ -12,11 +12,9 @@ import com.traeen.fant.R
 import com.traeen.fant.shared.Item
 
 import com.traeen.fant.ui.items_display.dummy.DummyContent.DummyItem
+import kotlinx.android.synthetic.main.list_item_card.view.*
 
-/**
- * [RecyclerView.Adapter] that can display a [DummyItem].
- * TODO: Replace the implementation with code for your data type.
- */
+
 class ItemsListAdapter(
     private val values: List<Item>
 ) : RecyclerView.Adapter<ItemsListAdapter.ViewHolder>() {
@@ -29,22 +27,20 @@ class ItemsListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.item_name.text = item.id.toString()
-        holder.item_description.text = item.name
-        println(item.seller?.email)
-        Picasso.get().load(Endpoints.GET_IMAGE(item.id, 100)).into(holder.item_image)
-
+        holder.itemName.text = item.name
+        holder.itemDescription.text = item.description
+        Picasso.get().load(Endpoints.GET_IMAGE(item.id, 100)).into(holder.itemImage)
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val item_name: TextView = view.findViewById(R.id.item_number)
-        val item_description: TextView = view.findViewById(R.id.content)
-        val item_image: ImageView = view.findViewById(R.id.item_image)
+        val itemName: TextView = view.item_number
+        val itemDescription: TextView = view.content
+        val itemImage: ImageView = view.item_image
 
         override fun toString(): String {
-            return super.toString() + " '" + item_description.text + "'"
+            return super.toString() + " '" + itemDescription.text + "'"
         }
     }
 }
