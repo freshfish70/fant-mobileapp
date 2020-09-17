@@ -1,4 +1,4 @@
-package com.traeen.fant.network
+package com.traeen.fant.shared
 
 import java.util.*
 
@@ -27,6 +27,8 @@ class Item(id: Int){
 
     var image: Array<Int> = arrayOf(0)
         set(value)  {}
+
+    var seller: User? = null;
 
 
 }

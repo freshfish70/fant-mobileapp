@@ -14,10 +14,9 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import com.traeen.fant.constants.Endpoints
 import com.traeen.fant.R
-import com.traeen.fant.network.Files
-import com.traeen.fant.network.Item
-import com.traeen.fant.ui.items_display.dummy.DummyContent
+import com.traeen.fant.shared.Item
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -34,13 +33,10 @@ class ItemsDisplayFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         viewManager = LinearLayoutManager(context)
 
-        val data = DummyContent.ITEMS
-
-        // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(context)
-        val url = "http://192.168.1.100:9080/api/shop/getitems?pag=1"
+        val url = Endpoints.GET_ITEMS(1);
         var dataset : List<Item> = emptyList()
-// Request a string response from the provided URL.
+
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             Response.Listener<String> { response ->

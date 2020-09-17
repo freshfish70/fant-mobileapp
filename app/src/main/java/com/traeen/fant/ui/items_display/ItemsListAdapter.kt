@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
+import com.traeen.fant.constants.Endpoints
 import com.traeen.fant.R
-import com.traeen.fant.network.Item
+import com.traeen.fant.shared.Item
 
 import com.traeen.fant.ui.items_display.dummy.DummyContent.DummyItem
-import kotlinx.android.synthetic.main.list_item_card.view.*
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem].
@@ -31,8 +31,8 @@ class ItemsListAdapter(
         val item = values[position]
         holder.item_name.text = item.id.toString()
         holder.item_description.text = item.name
-        println(holder.item_image)
-        Picasso.get().load("http://192.168.1.100:9080/api/resource/image/${item.id}?width=100").into(holder.item_image)
+        println(item.seller?.email)
+        Picasso.get().load(Endpoints.GET_IMAGE(item.id, 100)).into(holder.item_image)
 
     }
 
