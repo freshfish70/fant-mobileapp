@@ -15,7 +15,7 @@
         android:id="@+id/nav_search"
         android:name="com.traeen.fant.ui.item_display.ItemDisplayFragment"
         android:label="@string/menu_search"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_view_item" />
 
     <fragment
         android:id="@+id/nav_add_item"
@@ -23,11 +23,17 @@
         android:label="@string/menu_add_item"
         tools:layout="@layout/fragment_slideshow" />
 
+    <fragment
+        android:id="@+id/nav_view_item"
+        android:name="com.traeen.fant.ui.item_display.ItemDisplayFragment"
+        tools:layout="@layout/fragment_view_item" />
+
     <activity
         android:id="@+id/nav_login"
         android:name="com.traeen.fant.Login"
         android:label="@string/menu_login"
         tools:layout="@layout/activity_login" />
+
 
     <activity
         android:id="@+id/nav_create_user"

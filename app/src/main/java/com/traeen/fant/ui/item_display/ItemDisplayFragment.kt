@@ -6,27 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import com.traeen.fant.Main
 import com.traeen.fant.R
+
 
 class ItemDisplayFragment : Fragment() {
 
-    private lateinit var itemDisplayViewModel: ItemDisplayViewModel
+    private val model: ItemDisplayViewModel by activityViewModels()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        itemDisplayViewModel =
-                ViewModelProviders.of(this).get(ItemDisplayViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
+
+        val root = inflater.inflate(R.layout.fragment_view_item, container, false)
         val textView: TextView = root.findViewById(R.id.text_gallery)
 
+        model.text.observe(viewLifecycleOwner, Observer {
+            (activity as Main).supportActionBar?.title = it.name
+            textView.text = it.name
 
-        itemDisplayViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
         })
         return root
     }
