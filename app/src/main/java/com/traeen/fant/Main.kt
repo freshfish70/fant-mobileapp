@@ -1,5 +1,6 @@
 package com.traeen.fant
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,10 +16,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
+import com.traeen.fant.network.HTTPAccess
+import com.traeen.fant.network.VolleyHTTP
 import com.traeen.fant.ui.item_display.ItemDisplayViewModel
 
 class
-Main : AppCompatActivity() {
+Main : AppCompatActivity() , HTTPAccess {
 
     private lateinit var itemDisplayViewModel: ItemDisplayViewModel
 
@@ -65,4 +68,9 @@ Main : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun get(): VolleyHTTP {
+        return VolleyHTTP.getInstance(this)
+    }
+
 }
