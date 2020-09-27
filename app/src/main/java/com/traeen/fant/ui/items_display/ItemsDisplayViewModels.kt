@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class ItemsDisplayViewModels : ViewModel() {
 
     var selected: String = ""
-    
+
     fun select(item: String) {
         selected = item
     }

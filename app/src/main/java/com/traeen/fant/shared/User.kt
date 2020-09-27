@@ -3,7 +3,7 @@ package com.traeen.fant.shared
 /**
  * Represents a user in the fant system
  */
-class User {
+open class User {
 
     var id: Int = 0
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -53,6 +54,7 @@ class ItemsDisplayFragment : Fragment() {
         if (activity is HTTPAccess) {
             http = (activity as HTTPAccess).get()
         }
+        container?.rootView?.findViewById<FloatingActionButton>(R.id.fab)?.visibility = View.VISIBLE
 
         val listener = clickListner()
 

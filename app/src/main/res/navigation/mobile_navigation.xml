@@ -21,25 +21,24 @@
         android:id="@+id/nav_add_item"
         android:name="com.traeen.fant.ui.new_item.NewItemsFragment"
         android:label="@string/menu_add_item"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_new_item" />
 
     <fragment
         android:id="@+id/nav_view_item"
         android:name="com.traeen.fant.ui.item_display.ItemDisplayFragment"
         tools:layout="@layout/fragment_view_item" />
 
-    <activity
+    <fragment
         android:id="@+id/nav_login"
-        android:name="com.traeen.fant.Login"
+        android:name="com.traeen.fant.ui.login_display.LoginDisplayFragment"
         android:label="@string/menu_login"
-        tools:layout="@layout/activity_login" />
+        tools:layout="@layout/fragment_login" />
 
-
-    <activity
+    <fragment
         android:id="@+id/nav_create_user"
-        android:name="com.traeen.fant.CreateUser"
-        android:label="activity_create_user"
-        tools:layout="@layout/activity_create_user" />
+        android:name="com.traeen.fant.ui.create_user_display.CreateUserDisplayFragment"
+        android:label="Create user"
+        tools:layout="@layout/fragment_create_user" />
 
 
 </navigation>

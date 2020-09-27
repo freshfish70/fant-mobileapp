@@ -15,6 +15,11 @@
     <string name="text_password">Password</string>
     <string name="text_password_again">Retype password</string>
     <string name="text_create">Create</string>
+    <string name="text_buy">Buy</string>
+    <string name="text_login_wrong_email_password">Wrong email and/or password</string>
+    <string name="text_login_error">Error logging in</string>
+    <string name="text_login_invalid_email">Email address is not valid</string>
+    <string name="text_login_invalid_password">Password must be >6 characters</string>
 
 
     <string name="menu_home">Fant</string>
