@@ -2,6 +2,7 @@ package com.traeen.fant.network
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
 import android.util.LruCache
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -15,6 +16,7 @@ class VolleyHTTP constructor(context: Context) {
         fun getInstance(context: Context) =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: VolleyHTTP(context).also {
+                    Log.d("e", "NEW VOLLEY")
                     INSTANCE = it
                 }
             }
