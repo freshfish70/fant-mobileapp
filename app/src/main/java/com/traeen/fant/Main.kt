@@ -3,7 +3,6 @@ package com.traeen.fant
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.fragment.findNavController
 import com.traeen.fant.network.HTTPAccess
 import com.traeen.fant.network.VolleyHTTP
 import com.traeen.fant.ui.item_display.ItemDisplayViewModel
@@ -51,11 +48,18 @@ Main : AppCompatActivity(), HTTPAccess {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_search, R.id.nav_add_item
+                R.id.nav_home, R.id.nav_search, R.id.nav_add_item, R.id.nav_view_item
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        AuthenticationRepository.getInstance(getHTTPInstace()).loggedInUser
+        return super.onCreateView(name, context, attrs)
     }
 
     private fun setupFloatingActionButton(){
@@ -80,7 +84,7 @@ Main : AppCompatActivity(), HTTPAccess {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun get(): VolleyHTTP {
+    override fun getHTTPInstace(): VolleyHTTP {
         return VolleyHTTP.getInstance(this)
     }
 

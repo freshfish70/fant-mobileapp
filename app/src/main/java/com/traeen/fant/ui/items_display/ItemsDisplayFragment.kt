@@ -52,7 +52,7 @@ class ItemsDisplayFragment : Fragment() {
         viewManager = LinearLayoutManager(context)
 
         if (activity is HTTPAccess) {
-            http = (activity as HTTPAccess).get()
+            http = (activity as HTTPAccess).getHTTPInstace()
         }
         container?.rootView?.findViewById<FloatingActionButton>(R.id.fab)?.visibility = View.VISIBLE
 

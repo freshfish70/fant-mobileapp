@@ -1,16 +1,10 @@
 package com.traeen.fant.ui.login_display;
 
-import android.app.Application
-import android.os.AsyncTask
-import android.util.Log
 import android.util.Patterns
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.loader.content.AsyncTaskLoader
 import com.traeen.fant.AuthenticationRepository
-import com.traeen.fant.LoggedInUser
 import com.traeen.fant.R
 
 class LoginDisplayViewModel(val authenticationRepository: AuthenticationRepository) : ViewModel() {
@@ -25,11 +19,11 @@ class LoginDisplayViewModel(val authenticationRepository: AuthenticationReposito
 
         val form = LoginFormState();
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            form.mailError = R.string.text_login_invalid_email
+            form.mailError = R.string.text_invalid_email
         }
 
         if (password.length < 6) {
-            form.passwordError = R.string.text_login_invalid_password
+            form.passwordError = R.string.text_invalid_password
         }
 
         _formState.value = form

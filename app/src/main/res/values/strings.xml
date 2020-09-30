@@ -15,11 +15,15 @@
     <string name="text_password">Password</string>
     <string name="text_password_again">Retype password</string>
     <string name="text_create">Create</string>
+    <string name="text_register">Register</string>
     <string name="text_buy">Buy</string>
     <string name="text_login_wrong_email_password">Wrong email and/or password</string>
     <string name="text_login_error">Error logging in</string>
-    <string name="text_login_invalid_email">Email address is not valid</string>
-    <string name="text_login_invalid_password">Password must be 6 or more characters</string>
+    <string name="text_invalid_email">Email address is not valid</string>
+    <string name="text_invalid_password">Password must be 6 or more characters</string>
+    <string name="text_password_not_equal">Passwords are not equal</string>
+    <string name="text_can_not_be_blank">Can not be blank</string>
+    <string name="text_user_was_created">User was successfully created</string>
 
 
     <string name="menu_home">Fant</string>
@@ -27,6 +31,8 @@
     <string name="menu_add_item">Add new item</string>
     <string name="menu_login">Login</string>
     <string name="menu_register">Register</string>
+    <string name="menu_sign_out">Sign out</string>
+    <string name="menu_my_items">My items</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Strings related to login -->
@@ -35,7 +41,5 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
 </resources>

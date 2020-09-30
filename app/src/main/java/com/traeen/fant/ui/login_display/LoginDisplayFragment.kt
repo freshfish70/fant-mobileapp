@@ -1,6 +1,5 @@
 package com.traeen.fant.ui.login_display
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -29,7 +28,7 @@ class LoginDisplayFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (activity is HTTPAccess) {
-            http = (activity as HTTPAccess).get()
+            http = (activity as HTTPAccess).getHTTPInstace()
         }
     }
 
@@ -46,10 +45,10 @@ class LoginDisplayFragment : Fragment() {
         )
         val email = root.input_email
         val password = root.input_password
-        val loginButton = root.login_submit
-
+        val loginButton = root.register_submit
 
         val loginFieldsWatcher = object : TextWatcher {
+
             override fun afterTextChanged(s: Editable?) {
             }
 
