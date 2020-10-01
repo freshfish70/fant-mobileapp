@@ -3,6 +3,7 @@ package com.traeen.fant
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,6 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.traeen.fant.network.HTTPAccess
@@ -31,6 +33,8 @@ Main : AppCompatActivity(), HTTPAccess {
 
     private lateinit var navController: NavController
 
+    private lateinit var appViewModel: ApplicationViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         itemDisplayViewModel = ViewModelProvider(this).get(ItemDisplayViewModel::class.java)
@@ -38,6 +42,13 @@ Main : AppCompatActivity(), HTTPAccess {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         navController = findNavController(R.id.nav_host_fragment)
+
+        appViewModel = ViewModelProvider(this, ApplicationViewModelFactory(application)).get(
+            ApplicationViewModel::class.java
+        )
+
+
+
 
         setupFloatingActionButton()
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -51,18 +62,28 @@ Main : AppCompatActivity(), HTTPAccess {
                 R.id.nav_home, R.id.nav_search, R.id.nav_add_item, R.id.nav_view_item
             ), drawerLayout
         )
+
+        setupUserStateLister()
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
 
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        AuthenticationRepository.getInstance(getHTTPInstace()).loggedInUser
-        return super.onCreateView(name, context, attrs)
+    private fun setupUserStateLister() {
+        appViewModel.userState.observe(this, Observer {
+            val navView: NavigationView = findViewById(R.id.nav_view)
+            navView.menu.clear()
+            if (it) {
+                val user = appViewModel.currentUser
+                navView.inflateMenu(R.menu.loggedin_drawer_menu)
+            } else {
+                navView.inflateMenu(R.menu.not_loggedin_drawer_menu)
+            }
+        })
     }
 
-    private fun setupFloatingActionButton(){
+    private fun setupFloatingActionButton() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.show()
         fab.setOnClickListener { view ->

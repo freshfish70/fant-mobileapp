@@ -50,7 +50,6 @@ class ItemsDisplayFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         viewManager = LinearLayoutManager(context)
-
         if (activity is HTTPAccess) {
             http = (activity as HTTPAccess).getHTTPInstace()
         }

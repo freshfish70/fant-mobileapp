@@ -4,10 +4,10 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.traeen.fant.AuthenticationRepository
+import com.traeen.fant.UserRepository
 import com.traeen.fant.R
 
-class LoginDisplayViewModel(val authenticationRepository: AuthenticationRepository) : ViewModel() {
+class LoginDisplayViewModel(val userRepository: UserRepository) : ViewModel() {
 
     private val _formState = MutableLiveData<LoginFormState>()
     private val _loginResult = MutableLiveData<LoginResult>()
@@ -30,7 +30,7 @@ class LoginDisplayViewModel(val authenticationRepository: AuthenticationReposito
     }
 
     fun login(email: String, password: String) {
-        authenticationRepository.login(email, password) {
+        userRepository.login(email, password) {
             val loginResult = LoginResult()
             if (it != null) {
                 loginResult.success = true
@@ -40,6 +40,5 @@ class LoginDisplayViewModel(val authenticationRepository: AuthenticationReposito
             _loginResult.value = loginResult
         }
     }
-
 
 }

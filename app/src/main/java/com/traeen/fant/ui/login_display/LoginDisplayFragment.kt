@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.traeen.fant.ApplicationViewModel
+import com.traeen.fant.ApplicationViewModelFactory
 import com.traeen.fant.R
 import com.traeen.fant.network.HTTPAccess
 import com.traeen.fant.network.VolleyHTTP
@@ -94,8 +96,12 @@ class LoginDisplayFragment : Fragment() {
 
         loginModel.loginResult.observe(viewLifecycleOwner, Observer {
             if (it.success) {
+                val appModel = ViewModelProvider(requireActivity(), ApplicationViewModelFactory(activity?.application)).get(
+                    ApplicationViewModel::class.java
+                )
                 val navController = findNavController()
                 navController.navigate(R.id.nav_home)
+                appModel.userLoggedIn()
             } else {
                 Toast.makeText(context?.applicationContext, getText(it.error), Toast.LENGTH_SHORT)
                     .show()
