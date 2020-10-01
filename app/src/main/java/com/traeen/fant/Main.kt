@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -25,7 +26,7 @@ import com.traeen.fant.network.VolleyHTTP
 import com.traeen.fant.ui.item_display.ItemDisplayViewModel
 
 class
-Main : AppCompatActivity(), HTTPAccess {
+Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var itemDisplayViewModel: ItemDisplayViewModel
 
@@ -64,11 +65,26 @@ Main : AppCompatActivity(), HTTPAccess {
         )
 
         setupUserStateLister()
-
         setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setNavigationItemSelectedListener(this)
         navView.setupWithNavController(navController)
+
     }
 
+    fun logout(item: MenuItem) {
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout.close()
+        appViewModel.logoutUser()
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_sign_out -> {
+                appViewModel.logoutUser()
+            }
+        }
+        return true
+    }
 
     private fun setupUserStateLister() {
         appViewModel.userState.observe(this, Observer {

@@ -22,6 +22,7 @@
             android:title="@string/menu_my_items" />
         <item
             android:id="@+id/nav_sign_out"
+            android:onClick="logout"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_sign_out" />
     </group>
