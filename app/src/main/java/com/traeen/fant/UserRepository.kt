@@ -12,7 +12,9 @@ import com.google.gson.JsonParser
 import com.traeen.fant.constants.Endpoints
 import com.traeen.fant.network.VolleyHTTP
 import com.traeen.fant.shared.User
-import org.json.JSONObject
+import java.io.File
+import java.io.InputStream
+
 
 class UserRepository private constructor(private val volleyHTTP: VolleyHTTP) {
 
@@ -38,7 +40,7 @@ class UserRepository private constructor(private val volleyHTTP: VolleyHTTP) {
         sInstance!!.loggedInUser = null
     }
 
-    fun getUserAccessToken() : String {
+    fun getUserAccessToken(): String {
         return sInstance!!.loggedInUser?.accessToken ?: ""
     }
 
@@ -48,7 +50,7 @@ class UserRepository private constructor(private val volleyHTTP: VolleyHTTP) {
                 Request.Method.GET, Endpoints.GET_CURRENT_USER(), null,
                 { response ->
                     Log.d("CURRENT USER", response.toString());
-                    cb(User(1,"a", "b","c"))
+                    cb(User(1, "a", "b", "c"))
                 },
                 {
 //                    cb(null)
@@ -87,7 +89,6 @@ class UserRepository private constructor(private val volleyHTTP: VolleyHTTP) {
                     val params: MutableMap<String, String> = HashMap()
                     params["email"] = email
                     params["password"] = password
-                    params["content-type"] = "application/json"
                     return params
                 }
 
@@ -103,4 +104,5 @@ class UserRepository private constructor(private val volleyHTTP: VolleyHTTP) {
             }
         volleyHTTP.addToRequestQueue(stringRequest)
     }
+
 }

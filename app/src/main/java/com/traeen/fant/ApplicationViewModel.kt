@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.traeen.fant.shared.User
 import com.traeen.fant.ui.create_user_display.CreateUserFormState
+import java.io.InputStream
 
 class ApplicationViewModel(private val authRepo: UserRepository) : ViewModel() {
 
@@ -13,12 +14,12 @@ class ApplicationViewModel(private val authRepo: UserRepository) : ViewModel() {
 
     val userState: LiveData<Boolean> = _userLoggedIn
 
-    var currentUser : User? = null
+    var currentUser: User? = null
         private set
 
     fun userLoggedIn() {
         _userLoggedIn.value = true
-        authRepo.getCurrentUser{
+        authRepo.getCurrentUser {
             currentUser = it
         }
     }
@@ -31,5 +32,6 @@ class ApplicationViewModel(private val authRepo: UserRepository) : ViewModel() {
     fun isUserLoggedIn(): Boolean {
         return authRepo.isLoggedIn()
     }
+
 
 }

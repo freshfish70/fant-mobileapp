@@ -9,5 +9,6 @@ class Endpoints {
         val POST_LOGIN = fun(): String { return Constants.SERVER_ADDRESS + "authentication/login" }
         val POST_REGISTER = fun(): String { return Constants.SERVER_ADDRESS + "authentication/create" }
         val GET_CURRENT_USER = fun(): String { return Constants.SERVER_ADDRESS + "authentication/currentuser" }
+        val POST_NEW_ITEM = fun(): String { return Constants.SERVER_ADDRESS + "shop/additem" }
     }
 }
