@@ -32,7 +32,6 @@ class ItemDisplayFragment : Fragment() {
         container?.rootView?.findViewById<FloatingActionButton>(R.id.fab)?.visibility = View.INVISIBLE
 
         model.text.observe(viewLifecycleOwner, Observer {
-            Log.d("sold", it.sold.toString())
             val name = if (it.sold) "[SOLD]" + it.name else it.name
             (activity as Main).supportActionBar?.title = name
             item_name.text = name
