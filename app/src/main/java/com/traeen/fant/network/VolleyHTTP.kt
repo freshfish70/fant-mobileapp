@@ -16,7 +16,6 @@ class VolleyHTTP constructor(context: Context) {
         fun getInstance(context: Context) =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: VolleyHTTP(context).also {
-                    Log.d("e", "NEW VOLLEY")
                     INSTANCE = it
                 }
             }
