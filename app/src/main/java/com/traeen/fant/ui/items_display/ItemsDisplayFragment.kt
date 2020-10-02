@@ -73,12 +73,10 @@ class ItemsDisplayFragment : Fragment() {
                 val data = jsonObject.get("data")
                 if (data != null) {
                     dataset.clear()
-                    Log.d("B ENDRET", " w")
                     gson.fromJson(data, Array<ListedItem>::class.java).forEach {
                         dataset.add(it)
                     }
                     itemsListAdapter.notifyDataSetChanged()
-                    Log.d("ENDRET", " w")
                 }
             },
             {
