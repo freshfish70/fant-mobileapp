@@ -1,8 +1,11 @@
 package com.traeen.fant.ui.items_display
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +19,9 @@ import kotlinx.android.synthetic.main.list_item_card.view.*
 class ItemsListAdapter(
     private val values: List<ListedItem>,
     private val listner: RecylerViewClickListener
-) : RecyclerView.Adapter<ItemsListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ItemsListAdapter.ViewHolder>(), Filterable {
+
+    private var listedItems: List<ListedItem> = values
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -25,7 +30,7 @@ class ItemsListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = listedItems[position]
         holder.itemName.text = item.name
         holder.itemDescription.text = item.description
 
@@ -35,10 +40,10 @@ class ItemsListAdapter(
 
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = listedItems.size
 
     interface RecylerViewClickListener {
-        fun onClick(v: View?, position: Int )
+        fun onClick(v: View?, position: Int)
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
@@ -57,6 +62,35 @@ class ItemsListAdapter(
 
         override fun onClick(v: View?) {
             listner.onClick(v, adapterPosition)
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val searchString = constraint.toString()
+                val filterResults = FilterResults()
+                if (searchString.isBlank()) {
+                    filterResults.values = values
+                } else {
+                    val filteredItems = ArrayList<ListedItem>()
+                    values.forEach {
+                        if (it.name.toLowerCase()
+                                .contains(searchString.toLowerCase())
+                        ) {
+                            filteredItems.add(it)
+                        }
+                    }
+                    filterResults.values = filteredItems.toList()
+                }
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                listedItems = results?.values as (List<ListedItem>)
+                notifyDataSetChanged()
+            }
+
         }
     }
 }

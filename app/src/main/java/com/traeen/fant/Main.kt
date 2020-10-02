@@ -1,6 +1,8 @@
 package com.traeen.fant
 
+
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -35,6 +37,7 @@ Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedL
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
         navController = findNavController(R.id.nav_host_fragment)
 
 

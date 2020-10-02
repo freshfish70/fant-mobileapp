@@ -1,10 +1,12 @@
 package com.traeen.fant.ui.items_display
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -29,12 +31,13 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 class ItemsDisplayFragment : Fragment() {
 
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var itemsListAdapter: ItemsListAdapter
 
-    private val itemViewModel: ItemViewModel by activityViewModels<ItemViewModel>{
+    private val itemViewModel: ItemViewModel by activityViewModels<ItemViewModel> {
         ItemViewModelFactory(activity?.application)
     }
 
-    var dataset: List<ListedItem> = emptyList()
+    var dataset: ArrayList<ListedItem> = ArrayList()
 
     private var http: VolleyHTTP? = null
 
@@ -51,16 +54,16 @@ class ItemsDisplayFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        setHasOptionsMenu(true)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         viewManager = LinearLayoutManager(context)
+
         if (activity is HTTPAccess) {
             http = (activity as HTTPAccess).getHTTPInstace()
         }
         container?.rootView?.findViewById<FloatingActionButton>(R.id.fab)?.visibility = View.VISIBLE
-
         val listener = clickListner()
-
+        itemsListAdapter = ItemsListAdapter(dataset, listener);
         val url = Endpoints.GET_ITEMS(1)
         val stringRequest = StringRequest(
             Request.Method.GET, url,
@@ -69,8 +72,13 @@ class ItemsDisplayFragment : Fragment() {
                 val jsonObject: JsonObject = JsonParser.parseString(response).asJsonObject
                 val data = jsonObject.get("data")
                 if (data != null) {
-                    dataset = gson.fromJson(data, Array<ListedItem>::class.java).toList()
-                    root.items_list.adapter = ItemsListAdapter(dataset, listener)
+                    dataset.clear()
+                    Log.d("B ENDRET", " w")
+                    gson.fromJson(data, Array<ListedItem>::class.java).forEach {
+                        dataset.add(it)
+                    }
+                    itemsListAdapter.notifyDataSetChanged()
+                    Log.d("ENDRET", " w")
                 }
             },
             {
@@ -82,10 +90,26 @@ class ItemsDisplayFragment : Fragment() {
         root.items_list.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
-            root.items_list.adapter = ItemsListAdapter(dataset, listener)
+            root.items_list.adapter = itemsListAdapter
         }
 
         return root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        val searchView = menu.findItem(R.id.items_search).actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                itemsListAdapter.filter.filter(newText)
+                return true
+            }
+        })
+        super.onCreateOptionsMenu(menu, inflater)
+
     }
 
 }

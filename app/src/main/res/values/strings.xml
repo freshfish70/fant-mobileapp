@@ -38,6 +38,8 @@
     <string name="text_login_to_buy">Login to buy</string>
 
 
+    <string name="text_search">Search</string>
+
     <string name="menu_home">Fant</string>
     <string name="menu_search">Search</string>
     <string name="menu_add_item">Add new item</string>
@@ -45,8 +47,7 @@
     <string name="menu_register">Register</string>
     <string name="menu_sign_out">Sign out</string>
     <string name="menu_my_items">My items</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
