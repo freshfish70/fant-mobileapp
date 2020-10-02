@@ -61,7 +61,7 @@ class ItemsDisplayFragment : Fragment() {
         if (activity is HTTPAccess) {
             http = (activity as HTTPAccess).getHTTPInstace()
         }
-        container?.rootView?.findViewById<FloatingActionButton>(R.id.fab)?.visibility = View.VISIBLE
+
         val listener = clickListner()
         itemsListAdapter = ItemsListAdapter(dataset, listener);
         val url = Endpoints.GET_ITEMS(1)

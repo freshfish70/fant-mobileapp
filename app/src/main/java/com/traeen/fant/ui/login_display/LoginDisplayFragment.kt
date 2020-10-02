@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.traeen.fant.ApplicationViewModel
 import com.traeen.fant.ApplicationViewModelFactory
 import com.traeen.fant.R
@@ -43,10 +44,11 @@ class LoginDisplayFragment : Fragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_login, container, false)
-//        loginModel = ViewModelProvider.AndroidViewModelFactory(activity?.application!!).create<LoginDisplayViewModel>(LoginDisplayViewModel::class.java)
         loginModel = ViewModelProvider(this, LoginViewModelFactory(activity?.application)).get(
             LoginDisplayViewModel::class.java
         )
+        container?.rootView?.findViewById<FloatingActionButton>(R.id.fab)?.visibility =
+            View.INVISIBLE
 
         returnToLastScreen = arguments?.getBoolean("return") ?: false
 

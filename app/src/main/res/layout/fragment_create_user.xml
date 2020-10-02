@@ -11,12 +11,15 @@
     <EditText
         android:id="@+id/input_email"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginBottom="28dp"
         android:autofillHints=""
+        android:background="@android:drawable/divider_horizontal_textfield"
         android:ems="10"
         android:hint="@string/text_email"
         android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#123550"
         app:layout_constraintBottom_toTopOf="@+id/input_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -24,63 +27,79 @@
     <EditText
         android:id="@+id/input_password"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:autofillHints=""
+        android:background="@android:drawable/divider_horizontal_textfield"
         android:ems="10"
         android:hint="@string/text_password"
         android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#123550"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/register_submit"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
-        android:text="@string/text_register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_item_price" />
 
     <EditText
         android:id="@+id/input_item_name"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginBottom="32dp"
+        android:autofillHints=""
+        android:background="@android:drawable/divider_horizontal_textfield"
         android:ems="10"
         android:hint="@string/text_last_name"
         android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#123550"
         app:layout_constraintBottom_toTopOf="@+id/input_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/input_first_name"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginBottom="32dp"
+        android:autofillHints=""
+        android:background="@android:drawable/divider_horizontal_textfield"
         android:ems="10"
         android:hint="@string/text_first_name"
         android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#123550"
         app:layout_constraintBottom_toTopOf="@+id/input_item_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/input_item_price"
         android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_height="38dp"
         android:layout_marginTop="32dp"
+        android:autofillHints=""
+        android:background="@android:drawable/divider_horizontal_textfield"
         android:ems="10"
         android:hint="@string/text_password_again"
         android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#123550"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_password"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/input_password" />
+
+
+    <Button
+        android:id="@+id/register_submit"
+        style="@style/button"
+        android:layout_width="250dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/fant_button"
+        android:text="@string/text_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_item_price" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

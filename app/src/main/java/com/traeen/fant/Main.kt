@@ -31,6 +31,8 @@ Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedL
 
     private lateinit var appViewModel: ApplicationViewModel
 
+    private lateinit var fab: FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,7 +47,6 @@ Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedL
             ApplicationViewModel::class.java
         )
 
-        setupFloatingActionButton()
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -58,6 +59,7 @@ Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedL
             ), drawerLayout
         )
 
+        setupFloatingActionButton()
         setupUserStateLister()
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setNavigationItemSelectedListener(this)
@@ -86,16 +88,19 @@ Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedL
             navView.menu.clear()
             if (it) {
                 val user = appViewModel.currentUser
+                fab.show()
                 navView.inflateMenu(R.menu.loggedin_drawer_menu)
             } else {
+                fab.hide()
                 navView.inflateMenu(R.menu.not_loggedin_drawer_menu)
             }
         })
     }
 
     private fun setupFloatingActionButton() {
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.show()
+        fab = findViewById(R.id.fab)
+        fab.hide()
+        if (appViewModel.isUserLoggedIn()) fab.show()
         fab.setOnClickListener { view ->
             val addItemId = R.id.nav_add_item
             if (navController.currentDestination?.id?.equals(addItemId) == false) {

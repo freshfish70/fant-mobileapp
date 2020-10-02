@@ -18,7 +18,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
+        app:itemBackground="@color/colorPrimaryDark"
+        app:itemTextColor="@color/colorAccent"
         app:menu="@menu/not_loggedin_drawer_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
