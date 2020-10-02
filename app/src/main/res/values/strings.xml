@@ -36,6 +36,8 @@
     <string name="item_must_have_positive_price">Must have a positive price</string>
     <string name="item_must_have_a_picture">Please select a picture</string>
     <string name="text_login_to_buy">Login to buy</string>
+    <string name="text_could_not_create_item">Could not create item</string>
+    <string name="text_item_is_now_for_sale">Your item is now for sale</string>
 
 
     <string name="text_search">Search</string>

@@ -9,20 +9,27 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.traeen.fant.*
+import com.traeen.fant.ui.item_display.ItemViewModel
+import com.traeen.fant.ui.item_display.ItemViewModelFactory
 import kotlinx.android.synthetic.main.fragment_new_item.view.*
 
 
 class NewItemsFragment : Fragment() {
 
-    private lateinit var newItemsViewModel: NewItemsViewModel
-
     private val IMAGE_REQUEST_CODE = 100
 
     private var selectedImage: Uri? = null
     private lateinit var imageView: ImageView
+
+    private val itemViewModel: ItemViewModel by activityViewModels<ItemViewModel> {
+        ItemViewModelFactory(activity?.application)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +44,10 @@ class NewItemsFragment : Fragment() {
         val input_price = root.input_item_price
         val input_description = root.input_item_description
 
-        val newItemModel = ViewModelProvider(requireActivity(), NewItemsViewModelFactory(activity?.application)).get(
+        val newItemModel = ViewModelProvider(
+            requireActivity(),
+            NewItemsViewModelFactory(activity?.application)
+        ).get(
             NewItemsViewModel::class.java
         )
 
@@ -89,14 +99,45 @@ class NewItemsFragment : Fragment() {
 
 
         val contentResolver = context?.contentResolver!!
-        button_add_item.setOnClickListener{
+        button_add_item.setOnClickListener {
             if (selectedImage == null)
-                Toast.makeText(context?.applicationContext, getText(R.string.item_must_have_a_picture), Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    context?.applicationContext,
+                    getText(R.string.item_must_have_a_picture),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
-            else{
-                newItemModel.addItem(Item(input_name.text.toString(), input_description.text.toString(), input_price.text.toString().toInt(), contentResolver.openInputStream(selectedImage!!)!!))
+            else {
+                newItemModel.addItem(
+                    Item(
+                        input_name.text.toString(),
+                        input_description.text.toString(),
+                        input_price.text.toString().toInt(),
+                        contentResolver.openInputStream(selectedImage!!)!!
+                    )
+                )
             }
         }
+
+        newItemModel.itemAddedState.observe(viewLifecycleOwner, Observer {
+            if (it == null) {
+                Toast.makeText(
+                    context?.applicationContext,
+                    getText(R.string.text_could_not_create_item),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            } else {
+                Toast.makeText(
+                    context?.applicationContext,
+                    getText(R.string.text_item_is_now_for_sale),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                itemViewModel.setItem(it)
+                findNavController().navigate(R.id.nav_view_item)
+            }
+        })
 
         container?.rootView?.findViewById<FloatingActionButton>(R.id.fab)?.visibility =
             View.INVISIBLE

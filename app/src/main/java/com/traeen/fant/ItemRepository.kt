@@ -3,15 +3,15 @@ package com.traeen.fant
 import android.util.Log
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
+import com.android.volley.toolbox.HttpHeaderParser
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.JsonRequest
 import com.google.gson.Gson
-import com.google.gson.JsonSyntaxException
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import com.traeen.fant.constants.Endpoints
 import com.traeen.fant.network.VolleyHTTP
-import com.traeen.fant.shared.User
-import org.json.JSONException
-import java.lang.Exception
+import java.nio.charset.Charset
 import com.traeen.fant.shared.ListedItem as ListingItem
 
 
@@ -29,7 +29,7 @@ class ItemRepository private constructor(private val volleyHTTP: VolleyHTTP) {
         }
     }
 
-    fun addNewItem(item: Item, authToken: String, cb: (success: Boolean) -> Unit) {
+    fun addNewItem(item: Item, authToken: String, cb: (item: ListingItem?) -> Unit) {
         val headers: MutableMap<String, String> = HashMap()
         headers["name"] = item.name
         headers["description"] = item.description
@@ -41,6 +41,17 @@ class ItemRepository private constructor(private val volleyHTTP: VolleyHTTP) {
                 Endpoints.POST_NEW_ITEM(),
                 headers,
                 { response ->
+                    val gson = Gson()
+                    val jsonString = String(
+                        response.data,
+                        Charset.defaultCharset()
+                    )
+                    val jsonObject: JsonObject =
+                        JsonParser.parseString(jsonString).asJsonObject
+                    val data = jsonObject.get("data")
+                    if (data != null) {
+                        cb(gson.fromJson(data, ListingItem::class.java))
+                    }
                 },
                 {
                     Log.d("ITEM_ERROR", it.message.toString())

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.traeen.fant.Item
 import com.traeen.fant.ItemRepository
 import com.traeen.fant.UserRepository
+import com.traeen.fant.shared.ListedItem
 import com.traeen.fant.shared.User
 
 class NewItemsViewModel() : ViewModel() {
@@ -20,13 +21,14 @@ class NewItemsViewModel() : ViewModel() {
         this.itemRep = itemRep;
     }
 
-    private val _itemAdded = MutableLiveData<Boolean>(false)
-    val itemAddedState: LiveData<Boolean> = _itemAdded
+    private val _itemAdded = MutableLiveData<ListedItem?>(null)
+    val itemAddedState: LiveData<ListedItem?> = _itemAdded
 
     fun addItem(item: Item) {
         if (!authRepo.isLoggedIn()) return
         itemRep.addNewItem(item, authRepo.getUserAccessToken()) {
             _itemAdded.value = it
+
         }
     }
 

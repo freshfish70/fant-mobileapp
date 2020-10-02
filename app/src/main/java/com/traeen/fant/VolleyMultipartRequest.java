@@ -193,7 +193,6 @@ public class VolleyMultipartRequest extends Request<NetworkResponse> {
         dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" +
                 inputName + "\"; filename=\"" + dataFile.getFileName() + "\"" + lineEnd);
         if (dataFile.getType() != null && !dataFile.getType().trim().isEmpty()) {
-            System.out.println(dataFile.getType());
             dataOutputStream.writeBytes("Content-Type: " + dataFile.getType() + lineEnd);
         }
         dataOutputStream.writeBytes(lineEnd);
