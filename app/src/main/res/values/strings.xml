@@ -35,6 +35,7 @@
     <string name="item_image_description">Image of item</string>
     <string name="item_must_have_positive_price">Must have a positive price</string>
     <string name="item_must_have_a_picture">Please select a picture</string>
+    <string name="text_login_to_buy">Login to buy</string>
 
 
     <string name="menu_home">Fant</string>

@@ -1,19 +1,20 @@
-package com.traeen.fant
+package com.traeen.fant.ui.item_display
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.traeen.fant.ItemRepository
+import com.traeen.fant.UserRepository
 import com.traeen.fant.network.VolleyHTTP
-import com.traeen.fant.ui.login_display.LoginDisplayViewModel
 import java.lang.IllegalArgumentException
 
-class ApplicationViewModelFactory (private var application: Application?) : ViewModelProvider.Factory {
+class ItemViewModelFactory (private var application: Application?) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return if (modelClass == ApplicationViewModel::class.java && application != null) {
+        return if (modelClass == ItemViewModel::class.java && application != null) {
             val volley = VolleyHTTP.getInstance(application!!.applicationContext)
-            ApplicationViewModel(
-                UserRepository.getInstance(volley)
+            ItemViewModel(
+                UserRepository.getInstance(volley),
+                ItemRepository.getInstance(volley)
             ) as T
         } else throw IllegalArgumentException("Unknown ViewModel - $modelClass")
     }

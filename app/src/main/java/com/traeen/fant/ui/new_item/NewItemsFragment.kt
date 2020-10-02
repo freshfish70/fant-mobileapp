@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.traeen.fant.*
 import kotlinx.android.synthetic.main.fragment_new_item.view.*
@@ -31,8 +30,6 @@ class NewItemsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        newItemsViewModel =
-            ViewModelProviders.of(this).get(NewItemsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_new_item, container, false)
 
         val button_add_item = root.button_add_item

@@ -27,6 +27,8 @@ class LoginDisplayFragment : Fragment() {
 
     private lateinit var loginModel: LoginDisplayViewModel
 
+    private var returnToLastScreen = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (activity is HTTPAccess) {
@@ -45,10 +47,12 @@ class LoginDisplayFragment : Fragment() {
         loginModel = ViewModelProvider(this, LoginViewModelFactory(activity?.application)).get(
             LoginDisplayViewModel::class.java
         )
+
+        returnToLastScreen = arguments?.getBoolean("return") ?: false
+
         val email = root.input_email
         val password = root.input_password
         val loginButton = root.register_submit
-
         val loginFieldsWatcher = object : TextWatcher {
 
             override fun afterTextChanged(s: Editable?) {
@@ -96,11 +100,18 @@ class LoginDisplayFragment : Fragment() {
 
         loginModel.loginResult.observe(viewLifecycleOwner, Observer {
             if (it.success) {
-                val appModel = ViewModelProvider(requireActivity(), ApplicationViewModelFactory(activity?.application)).get(
+                val appModel = ViewModelProvider(
+                    requireActivity(),
+                    ApplicationViewModelFactory(activity?.application)
+                ).get(
                     ApplicationViewModel::class.java
                 )
                 val navController = findNavController()
-                navController.navigate(R.id.nav_home)
+                if (returnToLastScreen) {
+                    navController.popBackStack()
+                } else {
+                    navController.navigate(R.id.nav_home)
+                }
                 appModel.userLoggedIn()
             } else {
                 Toast.makeText(context?.applicationContext, getText(it.error), Toast.LENGTH_SHORT)

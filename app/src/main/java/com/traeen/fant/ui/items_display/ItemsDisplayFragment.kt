@@ -20,8 +20,9 @@ import com.traeen.fant.constants.Endpoints
 import com.traeen.fant.R
 import com.traeen.fant.network.HTTPAccess
 import com.traeen.fant.network.VolleyHTTP
-import com.traeen.fant.shared.Item
-import com.traeen.fant.ui.item_display.ItemDisplayViewModel
+import com.traeen.fant.shared.ListedItem
+import com.traeen.fant.ui.item_display.ItemViewModel
+import com.traeen.fant.ui.item_display.ItemViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
@@ -29,15 +30,17 @@ class ItemsDisplayFragment : Fragment() {
 
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private val model: ItemDisplayViewModel by activityViewModels()
+    private val itemViewModel: ItemViewModel by activityViewModels<ItemViewModel>{
+        ItemViewModelFactory(activity?.application)
+    }
 
-    var dataset: List<Item> = emptyList()
+    var dataset: List<ListedItem> = emptyList()
 
     private var http: VolleyHTTP? = null
 
     inner class clickListner : ItemsListAdapter.RecylerViewClickListener {
         override fun onClick(v: View?, position: Int) {
-            model.setItem(dataset[position])
+            itemViewModel.setItem(dataset[position])
             val navController = findNavController()
             navController.navigate(R.id.nav_view_item)
         }
@@ -66,7 +69,7 @@ class ItemsDisplayFragment : Fragment() {
                 val jsonObject: JsonObject = JsonParser.parseString(response).asJsonObject
                 val data = jsonObject.get("data")
                 if (data != null) {
-                    dataset = gson.fromJson(data, Array<Item>::class.java).toList()
+                    dataset = gson.fromJson(data, Array<ListedItem>::class.java).toList()
                     root.items_list.adapter = ItemsListAdapter(dataset, listener)
                 }
             },

@@ -1,5 +1,6 @@
 package com.traeen.fant.ui.new_item
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,14 +9,13 @@ import com.traeen.fant.ItemRepository
 import com.traeen.fant.UserRepository
 import com.traeen.fant.shared.User
 
-class NewItemsViewModel() :
-    ViewModel() {
+class NewItemsViewModel() : ViewModel() {
 
-    private lateinit var authRepo : UserRepository
+    private lateinit var authRepo: UserRepository
 
-    private lateinit var itemRep : ItemRepository
+    private lateinit var itemRep: ItemRepository
 
-    constructor(authRepo: UserRepository, itemRep: ItemRepository) : this(){
+    constructor(authRepo: UserRepository, itemRep: ItemRepository) : this() {
         this.authRepo = authRepo;
         this.itemRep = itemRep;
     }

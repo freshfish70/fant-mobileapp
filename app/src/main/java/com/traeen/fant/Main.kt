@@ -1,12 +1,8 @@
 package com.traeen.fant
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import com.google.android.material.navigation.NavigationView
@@ -23,12 +19,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.traeen.fant.network.HTTPAccess
 import com.traeen.fant.network.VolleyHTTP
-import com.traeen.fant.ui.item_display.ItemDisplayViewModel
 
 class
 Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedListener {
-
-    private lateinit var itemDisplayViewModel: ItemDisplayViewModel
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -38,18 +31,16 @@ Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        itemDisplayViewModel = ViewModelProvider(this).get(ItemDisplayViewModel::class.java)
+
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         navController = findNavController(R.id.nav_host_fragment)
 
+
         appViewModel = ViewModelProvider(this, ApplicationViewModelFactory(application)).get(
             ApplicationViewModel::class.java
         )
-
-
-
 
         setupFloatingActionButton()
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

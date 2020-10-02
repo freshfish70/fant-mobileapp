@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.traeen.fant.R
 import com.traeen.fant.constants.Endpoints
-import com.traeen.fant.shared.Item
+import com.traeen.fant.shared.ListedItem
 import kotlinx.android.synthetic.main.list_item_card.view.*
 
 
 class ItemsListAdapter(
-    private val values: List<Item>,
-private val listner: RecylerViewClickListener
+    private val values: List<ListedItem>,
+    private val listner: RecylerViewClickListener
 ) : RecyclerView.Adapter<ItemsListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

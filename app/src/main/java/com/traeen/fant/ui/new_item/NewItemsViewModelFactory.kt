@@ -4,6 +4,7 @@ import com.traeen.fant.ApplicationViewModel
 import com.traeen.fant.UserRepository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.traeen.fant.ItemRepository

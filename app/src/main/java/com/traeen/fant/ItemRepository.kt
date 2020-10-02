@@ -2,18 +2,17 @@ package com.traeen.fant
 
 import android.util.Log
 import com.android.volley.AuthFailureError
-import com.android.volley.NetworkResponse
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
-import com.google.gson.JsonObject
-import com.google.gson.JsonParser
+import com.android.volley.toolbox.JsonRequest
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
 import com.traeen.fant.constants.Endpoints
 import com.traeen.fant.network.VolleyHTTP
 import com.traeen.fant.shared.User
-import java.io.File
-import java.io.InputStream
+import org.json.JSONException
+import java.lang.Exception
+import com.traeen.fant.shared.ListedItem as ListingItem
 
 
 class ItemRepository private constructor(private val volleyHTTP: VolleyHTTP) {
@@ -30,7 +29,7 @@ class ItemRepository private constructor(private val volleyHTTP: VolleyHTTP) {
         }
     }
 
-    fun addNewItem(item: Item, authToken:String, cb: (success: Boolean)->Unit) {
+    fun addNewItem(item: Item, authToken: String, cb: (success: Boolean) -> Unit) {
         val headers: MutableMap<String, String> = HashMap()
         headers["name"] = item.name
         headers["description"] = item.description
@@ -42,10 +41,9 @@ class ItemRepository private constructor(private val volleyHTTP: VolleyHTTP) {
                 Endpoints.POST_NEW_ITEM(),
                 headers,
                 { response ->
-
                 },
                 {
-
+                    Log.d("ITEM_ERROR", it.message.toString())
                 }) {
                 override fun getByteData(): Map<String, DataPart>? {
                     val params: MutableMap<String, DataPart> = HashMap()
@@ -54,10 +52,37 @@ class ItemRepository private constructor(private val volleyHTTP: VolleyHTTP) {
                         item.image.readBytes(),
                         "image/jpg"
                     )
-
                     return params
                 }
             }
+        volleyHTTP.addToRequestQueue(request)
+    }
+
+    fun buyItem(item: ListingItem, authToken: String, cb: (success: Boolean) -> Unit) {
+        val request = object : JsonObjectRequest(
+            Request.Method.PUT, Endpoints.POST_BUY_ITEM(), null,
+            { response ->
+                try {
+                    cb(true)
+                } catch (e: Exception) {
+                    cb(false)
+                }
+            },
+            {
+                Log.d("ITEM_REQUEST_ERROR", it.message.toString())
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String?> {
+                val params: MutableMap<String, String?> = HashMap()
+                params["Content-Type"] = "application/json"
+                params["Authorization"] = authToken
+
+                params["id"] = item.id.toString()
+                return params
+            }
+
+        }
+
         volleyHTTP.addToRequestQueue(request)
     }
 }
