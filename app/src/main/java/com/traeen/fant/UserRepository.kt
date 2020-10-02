@@ -7,11 +7,14 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import com.google.gson.JsonSyntaxException
 import com.traeen.fant.constants.Endpoints
 import com.traeen.fant.network.VolleyHTTP
 import com.traeen.fant.shared.User
+import org.json.JSONException
 import java.io.File
 import java.io.InputStream
 
@@ -49,16 +52,23 @@ class UserRepository private constructor(private val volleyHTTP: VolleyHTTP) {
             object : JsonObjectRequest(
                 Request.Method.GET, Endpoints.GET_CURRENT_USER(), null,
                 { response ->
-                    Log.d("CURRENT USER", response.toString());
-                    cb(User(1, "a", "b", "c"))
+                    try {
+                        val user = Gson().fromJson(
+                            response.getJSONObject("data").toString(),
+                            User::class.java
+                        )
+                        cb(user)
+                    } catch (e: JSONException) {
+                        Log.d("CURRENT_USER", e.message!!)
+                    } catch (e: JsonSyntaxException) {
+                        Log.d("CURRENT_USER", e.message!!)
+                    }
                 },
                 {
-//                    cb(null)
                 }) {
                 @Throws(AuthFailureError::class)
                 override fun getHeaders(): Map<String, String?> {
                     val params: MutableMap<String, String?> = HashMap()
-                    Log.d("CU", getUserAccessToken())
                     params["Authorization"] = sInstance!!.getUserAccessToken()
                     return params
                 }
