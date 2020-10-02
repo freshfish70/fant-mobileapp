@@ -30,7 +30,7 @@ private val listner: RecylerViewClickListener
         holder.itemDescription.text = item.description
 
         var url = ""
-        if (!item.image.isEmpty()) url = Endpoints.GET_IMAGE(item.image.first(), 100)
+        if (item.image.isNotEmpty()) url = Endpoints.GET_IMAGE(item.image.first(), 100)
         Picasso.get().load(url).error(R.drawable.ic_menu_gallery).into(holder.itemImage)
 
     }

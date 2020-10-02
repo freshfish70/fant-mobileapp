@@ -10,6 +10,7 @@
         android:id="@+id/image_view"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
+        android:contentDescription="@string/content_image_of_item_to_sell"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,7 +18,7 @@
 
 
     <EditText
-        android:id="@+id/input_last_name"
+        android:id="@+id/input_item_name"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -30,20 +31,20 @@
         app:layout_constraintTop_toBottomOf="@+id/image_view" />
 
     <EditText
-        android:id="@+id/input_retype_password"
+        android:id="@+id/input_item_price"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/text_item_price"
-        android:inputType="textPassword"
+        android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_last_name" />
+        app:layout_constraintTop_toBottomOf="@+id/input_item_name" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/input_item_description"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -53,6 +54,17 @@
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_retype_password" />
+        app:layout_constraintTop_toBottomOf="@+id/input_item_price"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/button_add_item"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/text_create_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_item_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

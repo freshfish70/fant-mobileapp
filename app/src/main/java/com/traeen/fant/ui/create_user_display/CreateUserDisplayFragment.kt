@@ -1,8 +1,6 @@
 package com.traeen.fant.ui.create_user_display
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +18,7 @@ import com.traeen.fant.constants.Endpoints
 import com.traeen.fant.network.HTTPAccess
 import com.traeen.fant.network.VolleyHTTP
 import kotlinx.android.synthetic.main.fragment_create_user.view.*
+import com.traeen.fant.textWatcherTextChanged
 
 class CreateUserDisplayFragment : Fragment() {
 
@@ -41,10 +40,10 @@ class CreateUserDisplayFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_create_user, container, false)
 
         val firstName = root.input_first_name
-        val lastName = root.input_last_name
+        val lastName = root.input_item_name
         val email = root.input_email
         val password = root.input_password
-        val rePassword = root.input_retype_password
+        val rePassword = root.input_item_price
         val registerButton = root.register_submit
 
         fun isFormValid(): Boolean {
@@ -52,7 +51,7 @@ class CreateUserDisplayFragment : Fragment() {
         }
 
         registerButton.isEnabled = false
-        firstName.addTextChangedListener(watcher {
+        firstName.addTextChangedListener(textWatcherTextChanged {
             if (it != null) {
                 if (it.toString().isBlank()) firstName.error =
                     getString(R.string.text_can_not_be_blank)
@@ -62,7 +61,7 @@ class CreateUserDisplayFragment : Fragment() {
 
         })
 
-        lastName.addTextChangedListener(watcher {
+        lastName.addTextChangedListener(textWatcherTextChanged {
             if (it != null) {
                 if (it.toString().isBlank()) lastName.error =
                     getString(R.string.text_can_not_be_blank)
@@ -72,7 +71,7 @@ class CreateUserDisplayFragment : Fragment() {
 
         })
 
-        email.addTextChangedListener(watcher {
+        email.addTextChangedListener(textWatcherTextChanged {
             if (it != null) {
                 when {
                     it.toString().isBlank() -> email.error =
@@ -86,7 +85,7 @@ class CreateUserDisplayFragment : Fragment() {
             }
         })
 
-        password.addTextChangedListener(watcher {
+        password.addTextChangedListener(textWatcherTextChanged {
             if (it != null) {
                 print(it.toString())
                 when {
@@ -101,7 +100,7 @@ class CreateUserDisplayFragment : Fragment() {
             }
         })
 
-        rePassword.addTextChangedListener(watcher {
+        rePassword.addTextChangedListener(textWatcherTextChanged {
             if (it != null) {
                 when {
                     it.toString().isEmpty() -> {
@@ -157,23 +156,6 @@ class CreateUserDisplayFragment : Fragment() {
         http?.addToRequestQueue(stringRequest)
     }
 
-    private fun watcher(validator: (s: CharSequence?) -> Unit): TextWatcher {
-        return object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-            }
 
-            override fun beforeTextChanged(
-                s: CharSequence?,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                validator(s)
-            }
-        }
-    }
 
 }

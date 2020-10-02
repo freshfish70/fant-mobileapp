@@ -30,11 +30,12 @@ class ItemRepository private constructor(private val volleyHTTP: VolleyHTTP) {
         }
     }
 
-    fun addNewItem(item: Item) {
+    fun addNewItem(item: Item, authToken:String, cb: (success: Boolean)->Unit) {
         val headers: MutableMap<String, String> = HashMap()
         headers["name"] = item.name
         headers["description"] = item.description
         headers["price"] = item.price.toString()
+        headers["Authorization"] = authToken
 
         val request =
             object : VolleyMultipartRequest(
@@ -49,9 +50,9 @@ class ItemRepository private constructor(private val volleyHTTP: VolleyHTTP) {
                 override fun getByteData(): Map<String, DataPart>? {
                     val params: MutableMap<String, DataPart> = HashMap()
                     params["cover"] = DataPart(
-                        "test.jpeg",
+                        "test.jpg",
                         item.image.readBytes(),
-                        "image/png"
+                        "image/jpg"
                     )
 
                     return params

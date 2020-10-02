@@ -89,6 +89,7 @@ class UserRepository private constructor(private val volleyHTTP: VolleyHTTP) {
                     val params: MutableMap<String, String> = HashMap()
                     params["email"] = email
                     params["password"] = password
+                    params["Content-Type"] = "application/json"
                     return params
                 }
 
