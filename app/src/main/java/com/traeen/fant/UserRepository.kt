@@ -78,15 +78,19 @@ class UserRepository private constructor(private val volleyHTTP: VolleyHTTP) {
 
     fun login(email: String, password: String, cb: (LoggedInUser?) -> Unit) {
         var authToken = ""
+
         val stringRequest =
             object : StringRequest(
                 Request.Method.POST, Endpoints.POST_LOGIN(),
                 { response ->
+
                     val jsonObject: JsonObject = JsonParser.parseString(response).asJsonObject
                     val data = jsonObject.get("data")
                     if (data == null && authToken.isNotEmpty()) {
+                        Log.d("H", "TOKEN" + authToken)
                         cb(null)
                     } else {
+                        Log.d("H2", "TOKEN" + authToken)
                         sInstance!!.loggedInUser = LoggedInUser(authToken)
                         cb(sInstance!!.loggedInUser)
                     }

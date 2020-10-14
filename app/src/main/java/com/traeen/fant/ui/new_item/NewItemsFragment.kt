@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.traeen.fant.*
 import com.traeen.fant.ui.item_display.ItemViewModel
 import com.traeen.fant.ui.item_display.ItemViewModelFactory
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_new_item.view.*
 
 
@@ -26,11 +28,21 @@ class NewItemsFragment : Fragment() {
 
     private var selectedImage: Uri? = null
     private lateinit var imageView: ImageView
+    private lateinit var newItemModel: NewItemsViewModel;
 
     private val itemViewModel: ItemViewModel by activityViewModels<ItemViewModel> {
         ItemViewModelFactory(activity?.application)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        newItemModel = ViewModelProvider(
+            requireActivity(),
+            NewItemsViewModelFactory(activity?.application)
+        ).get(
+            NewItemsViewModel::class.java
+        )
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,12 +56,7 @@ class NewItemsFragment : Fragment() {
         val input_price = root.input_item_price
         val input_description = root.input_item_description
 
-        val newItemModel = ViewModelProvider(
-            requireActivity(),
-            NewItemsViewModelFactory(activity?.application)
-        ).get(
-            NewItemsViewModel::class.java
-        )
+
 
         imageView = root.image_view
         imageView.setOnClickListener {
@@ -61,8 +68,13 @@ class NewItemsFragment : Fragment() {
                 IMAGE_REQUEST_CODE
             )
         }
+
+
+        fun efr(t: EditText): Boolean {
+            return t.error == null && t.text.toString().isNotBlank();
+        }
         fun isFormValid(): Boolean {
-            return (input_name.error == null && input_price.error == null && input_description.error == null)
+            return (efr(input_name) && efr(input_price) && efr(input_description))
         }
 
         button_add_item.isEnabled = false
@@ -97,7 +109,7 @@ class NewItemsFragment : Fragment() {
             button_add_item.isEnabled = isFormValid()
         })
 
-
+        var submitted = false;
         val contentResolver = context?.contentResolver!!
         button_add_item.setOnClickListener {
             if (selectedImage == null)
@@ -108,6 +120,7 @@ class NewItemsFragment : Fragment() {
                 )
                     .show()
             else {
+                submitted = true;
                 newItemModel.addItem(
                     Item(
                         input_name.text.toString(),
@@ -120,22 +133,24 @@ class NewItemsFragment : Fragment() {
         }
 
         newItemModel.itemAddedState.observe(viewLifecycleOwner, Observer {
-            if (it == null) {
-                Toast.makeText(
-                    context?.applicationContext,
-                    getText(R.string.text_could_not_create_item),
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            } else {
-                Toast.makeText(
-                    context?.applicationContext,
-                    getText(R.string.text_item_is_now_for_sale),
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                itemViewModel.setItem(it)
-                findNavController().navigate(R.id.nav_view_item)
+            if (submitted) {
+                if (it == null) {
+                    Toast.makeText(
+                        context?.applicationContext,
+                        getText(R.string.text_could_not_create_item),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                } else {
+                    Toast.makeText(
+                        context?.applicationContext,
+                        getText(R.string.text_item_is_now_for_sale),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                    itemViewModel.setItem(it)
+                    findNavController().navigate(R.id.nav_view_item)
+                }
             }
         })
 

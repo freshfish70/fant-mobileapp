@@ -69,10 +69,13 @@ class ItemDisplayFragment : Fragment() {
             val name = if (it.sold) "[SOLD] " + it.name else it.name
             (activity as Main).supportActionBar?.title = name
 
+            Log.d("CURENT USER", appViewModel.currentUser?.firstName ?: "no user yet")
             if (it.seller?.id == appViewModel.currentUser?.id || it.sold) {
                 buttonBuyItem.visibility = View.INVISIBLE
-            } else {
+            } else if (appViewModel.currentUser == null){
                 buttonBuyItem.text = getText(R.string.text_login_to_buy)
+            }else{
+                buttonBuyItem.text = getText(R.string.text_buy)
             }
             // Obtain a larger image
             Picasso.get().load(Endpoints.GET_IMAGE(it.image[0], 400))

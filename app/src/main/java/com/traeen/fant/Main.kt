@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import com.google.android.material.navigation.NavigationView
@@ -21,6 +22,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.traeen.fant.network.HTTPAccess
 import com.traeen.fant.network.VolleyHTTP
+import kotlinx.android.synthetic.main.nav_header_main.view.*
+import java.lang.Exception
 
 class
 Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedListener {
@@ -42,10 +45,10 @@ Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedL
 
         navController = findNavController(R.id.nav_host_fragment)
 
-
         appViewModel = ViewModelProvider(this, ApplicationViewModelFactory(application)).get(
             ApplicationViewModel::class.java
         )
+
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -68,6 +71,7 @@ Main : AppCompatActivity(), HTTPAccess, NavigationView.OnNavigationItemSelectedL
     }
 
     fun logout(item: MenuItem) {
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.close()
         appViewModel.logoutUser()

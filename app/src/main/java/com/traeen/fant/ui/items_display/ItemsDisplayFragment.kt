@@ -2,6 +2,7 @@ package com.traeen.fant.ui.items_display
 
 import android.app.SearchManager
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -94,9 +95,13 @@ class ItemsDisplayFragment : Fragment() {
         return root
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val searchView = menu.findItem(R.id.items_search).actionView as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        val searchView = menu.findItem(R.id.items_search)
+        val actionView = searchView.actionView as SearchView
+        searchView.setVisible(true)
+        actionView.visibility = View.VISIBLE;
+        actionView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -108,6 +113,10 @@ class ItemsDisplayFragment : Fragment() {
         })
         super.onCreateOptionsMenu(menu, inflater)
 
+    }
+
+    override fun onDestroyOptionsMenu() {
+        super.onDestroyOptionsMenu()
     }
 
 }

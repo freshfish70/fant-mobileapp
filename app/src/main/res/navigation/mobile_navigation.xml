@@ -35,6 +35,12 @@
         tools:layout="@layout/fragment_login" />
 
     <fragment
+        android:id="@+id/nav_current_user"
+        android:name="com.traeen.fant.ui.current_user.CurrentUserFragment"
+        android:label="@string/menu_current_user"
+        tools:layout="@layout/fragment_current_user_fragment" />
+
+    <fragment
         android:id="@+id/nav_create_user"
         android:name="com.traeen.fant.ui.create_user_display.CreateUserDisplayFragment"
         android:label="Create user"

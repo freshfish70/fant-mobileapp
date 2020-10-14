@@ -31,7 +31,7 @@ class ItemsListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listedItems[position]
-        holder.itemName.text = item.name
+        holder.itemName.text = if (item.sold) "[SOLD] " + item.name else item.name
         holder.itemDescription.text = item.description
 
         var url = ""

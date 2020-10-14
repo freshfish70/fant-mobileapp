@@ -3,6 +3,7 @@ package com.traeen.fant.ui.login_display
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,19 +103,23 @@ class LoginDisplayFragment : Fragment() {
 
         loginModel.loginResult.observe(viewLifecycleOwner, Observer {
             if (it.success) {
+            Log.d("E", "LOGIN SUCCES")
                 val appModel = ViewModelProvider(
                     requireActivity(),
                     ApplicationViewModelFactory(activity?.application)
                 ).get(
                     ApplicationViewModel::class.java
                 )
-                val navController = findNavController()
-                if (returnToLastScreen) {
-                    navController.popBackStack()
-                } else {
-                    navController.navigate(R.id.nav_home)
-                }
                 appModel.userLoggedIn()
+                appModel.userState.observe(viewLifecycleOwner, Observer {
+                    val navController = findNavController()
+                    if (returnToLastScreen) {
+                        navController.popBackStack()
+                    } else {
+                        navController.navigate(R.id.nav_home)
+                    }
+                })
+
             } else {
                 Toast.makeText(context?.applicationContext, getText(it.error), Toast.LENGTH_SHORT)
                     .show()

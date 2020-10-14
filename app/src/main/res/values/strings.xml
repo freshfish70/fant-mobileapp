@@ -46,6 +46,7 @@
     <string name="menu_search">Search</string>
     <string name="menu_add_item">Add new item</string>
     <string name="menu_login">Login</string>
+    <string name="menu_current_user">Profile</string>
     <string name="menu_register">Register</string>
     <string name="menu_sign_out">Sign out</string>
     <string name="menu_my_items">My items</string>
@@ -57,4 +58,6 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
     <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
